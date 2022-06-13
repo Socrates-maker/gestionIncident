@@ -50,14 +50,20 @@ DROP TABLE IF EXISTS `incident`;
 CREATE TABLE `incident` (
   `id` int NOT NULL AUTO_INCREMENT,
   `users_pk` int NOT NULL,
-  `pylone_pk` int NOT NULL,
-  `site_site` int NOT NULL,
+  `pylone_pk` int DEFAULT NULL,
+  `site_pk` int DEFAULT NULL,
   `equipment_pk` int NOT NULL,
   `description` text NOT NULL,
+  `solution` text,
   `distant` tinyint(1) NOT NULL,
   `date` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `users_pk` (`users_pk`),
+  KEY `pylone_pk` (`pylone_pk`),
+  KEY `incident_ibfk_1` (`equipment_pk`),
+  KEY `site_pk` (`site_pk`),
+  CONSTRAINT `incident_ibfk_1` FOREIGN KEY (`site_pk`) REFERENCES `sites` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +72,7 @@ CREATE TABLE `incident` (
 
 LOCK TABLES `incident` WRITE;
 /*!40000 ALTER TABLE `incident` DISABLE KEYS */;
+INSERT INTO `incident` VALUES (1,2,1,NULL,1,'panne','',1,'2022-06-12'),(2,2,1,NULL,1,'ppppp','',0,'2022-06-12'),(3,1,NULL,2,1,'popopopo','',0,'2022-06-12'),(4,2,NULL,2,2,'ppppp','',0,'2022-06-13');
 /*!40000 ALTER TABLE `incident` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -157,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-10 19:47:17
+-- Dump completed on 2022-06-13 16:43:44

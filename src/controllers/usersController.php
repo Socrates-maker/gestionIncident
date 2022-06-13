@@ -22,6 +22,7 @@ function connexion(String $username,String $password){
 			foreach ($users as $key ) {
 				if (password_verify($password, $key['password'])) {
 					$user_chearched = $key['firstname'];
+					$user_pk = $key['id'];
 					$user_founded = TRUE; 
 				}
 			}
@@ -30,7 +31,8 @@ function connexion(String $username,String $password){
 				$succes = TRUE;
 				$succes_message = "connexion reussie . vous êtes connecté Mr ".$user_chearched;
 				//require("publics/views/incidentMenu.php");
-				header("Location:index.php?action=incident");
+				//echo $user_pk;
+				header("Location:index.php?action=incident&user_pk=".$user_pk);
 			}else{
 				$error = TRUE;
 				$error_message = "Mot de passe incorrecte";
@@ -61,8 +63,6 @@ function registration(String $firstname,String $lastname,String $username,String
 		$user->setPassword($password);
 		$registre = $user->userRegistration();
 		if($registre == TRUE) {
-			//require('publics/views/confirm.php');
-			//$confirm_message = "Inscription reussie. Vous pouvez vous connecter.";
 			$error = False;
 			$confirm_message = TRUE;
 			require("publics/views/connexion.php");

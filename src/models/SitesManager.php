@@ -3,8 +3,8 @@
 require_once("Manager.php");
 
 class SitesManager extends Manager{
-	private int $id;
-	private String $place;
+	private  $id;
+	private  $place;
 
 	public function getId(){
 		return $this->id;

@@ -3,12 +3,12 @@
 require_once('Manager.php');
 
 class UserManager extends Manager{
-	private int $id;
-	private String $firstname;
-	private String $lastname;
-	private String $username;
-	private String $email;
-	private String $password;
+	private  $id;
+	private  $firstname;
+	private  $lastname;
+	private  $username;
+	private  $email;
+	private  $password;
 
 
 	public function getId()
@@ -68,7 +68,7 @@ class UserManager extends Manager{
 
 	public function getUserByName(){
 		$db = $this->dbconnect();
-		$req = $db->prepare("SELECT firstname,lastname,email,password FROM users WHERE firstname = ?");
+		$req = $db->prepare("SELECT * FROM users WHERE firstname = ?");
 		$req->execute(array($this->name));
 		return $req->fetchAll();
 	}
@@ -82,7 +82,7 @@ class UserManager extends Manager{
 
 	public function getUserByUserName(){
 		$db = $this->dbconnect();
-		$req = $db->prepare("SELECT firstname,lastname,email,password FROM users WHERE username = ?");
+		$req = $db->prepare("SELECT * FROM users WHERE username = ?");
 		$req->execute(array($this->username));
 		return $req->fetchAll();
 	}

@@ -38,10 +38,36 @@ try {
 			registration($firstname,$lastname,$username,$email,$password);
 			break;
 		case 'incident':
-			incidentPage();
+			$post = isset($_POST['pylonne']) AND isset($_POST['localisation']) AND isset($_POST['equipement']) AND isset($_POST['description']) AND isset($_POST['solution']);
+			//$post = TRUE;
+			if (!$post) 
+			{
+				$user_pk = "";
+				$pylonne = "";
+				$localisation = "";
+				$equipement = "";
+				$description = "";
+				$solution = "";
+			}else{
+				$user_pk = $_GET['user_pk'];
+				$pylonne = $_POST['pylonne'];
+				$localisation = $_POST['localisation'];
+				$equipement = $_POST['equipement'];
+				$description = $_POST['description'];
+				$solution = $_POST['solution'];
+			}
+			incidentPage($user_pk,$pylonne,$localisation,$equipement,$description,$solution);
 			break;
 		case 'statistiques':
-			statitistique();
+			if (!isset($_POST['date_debut']) AND !isset($_POST['date_fin']) ) {
+				$date_debut = "";
+				$date_fin = "";
+			}	
+			else{
+				$date_debut = $_POST['date_debut'];
+				$date_fin = $_POST['date_fin'];
+			}
+			statitistique($date_debut,$date_fin);
 			break;
 		default:
 			index();

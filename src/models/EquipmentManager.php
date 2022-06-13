@@ -3,8 +3,8 @@
 
  class EquipmentManager extends Manager{
 
- 	private int $id;
-	private String $name;
+ 	private  $id;
+	private  $name;
 
 	public function getId(){
 		return $this->id;
