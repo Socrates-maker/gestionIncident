@@ -101,9 +101,23 @@ class IncidentManager extends Manager{
 
 	public function getIncidentByDate($date_debut,$date_fin){
 		$db = $this->dbconnect();
-		$req = $db->prepare("SELECT pylon.place as pylon  FROM incident,pylon,sites WHERE pylon.id=pylone_pk AND sites.id=site_pk AND incident.date>=? AND incident.date<=? ");
+		$req = $db->prepare("SELECT  * FROM incident WHERE incident.date>=? AND incident.date<=? ");
 		$req->execute(array($date_debut,$date_fin));
 		return $req->fetchAll();
+	}
+
+	public function getMoreIncidentPylonne(){
+		$db = $this->dbconnect();
+		$req = $db->prepare("SELECT count(*) as nbre,pylon.place as pylone FROM pylon,incident WHERE pylone_pk=pylon.id GROUP BY pylone ORDER BY nbre DESC");
+		$req->execute();
+		return $req->fetchAll();
+	}
+
+	public function getIncientByDistant(){
+		$db = $this->dbconnect();
+		$req = $db->prepare("SELECT * FROM incident WHERE distant = 1");
+		$req->execute();
+		return$req->fetchAll();
 	}
 	
 }

@@ -4,6 +4,7 @@ require('src/controllers/incidentController.php');
 
 try {
 	if (isset($_GET['action'])) {
+		session_start();
 		switch ($_GET['action']) {
 		case 'home':
 			index();
@@ -68,6 +69,16 @@ try {
 				$date_fin = $_POST['date_fin'];
 			}
 			statitistique($date_debut,$date_fin);
+			break;
+		case 'incidentByPylon':
+			incidentsGroupByPylon();
+			break;
+		case 'deconnexion':
+			session_destroy();
+			header("Location:index.php?action=connexion");
+			break;
+		case 'terminauxdistant':
+			incidentDistant();
 			break;
 		default:
 			index();

@@ -28,4 +28,11 @@ class SitesManager extends Manager{
 		$req->execute();
 		return $req->fetchAll();
 	}
+
+	public function getSitesById($id){
+		$db = $this->dbconnect();
+		$req = $db->prepare("SELECT * FROM sites WHERE id=?");
+		$req->execute(array($id));
+		return $req->fetch();
+	}
 }

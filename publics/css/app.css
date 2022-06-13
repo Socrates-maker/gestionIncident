@@ -40,7 +40,7 @@ nav{
 }
 
 .form-container{
-	background-color: rgb(255, 255, 255);
+	background-color: rgba(255, 255, 255,0.7);
 	width: 400px;
 	margin: auto;
 	border-radius: 20px;
@@ -72,7 +72,7 @@ nav{
 	height: 500px; 
 	padding-top: 90px; 
 	border-radius: 50px;
-	background-color: white;
+	background-color: rgba(255, 255, 255,0.7);
 }
 
 .incident-element-menu{
@@ -93,7 +93,6 @@ nav{
 
 
 .form-incident-container{
-	/*background-color: rgb(255, 255, 255);*/
 	width: 350px;
 	/*margin: auto;*/
 	border-radius: 20px;
@@ -107,6 +106,10 @@ nav{
 	position: absolute ; 
 	margin-top: 40px; 
 	transform: translatex(-50%);
+}
+
+td{
+	border: 1px solid black;
 }
 
 @media screen and (max-width: 768px){

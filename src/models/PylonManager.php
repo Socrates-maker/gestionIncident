@@ -28,4 +28,11 @@
 		$req->execute();
 		return $req->fetchAll();
 	}
+
+	public function getPylonById($id){
+		$db = $this->dbconnect();
+		$req = $db->prepare("SELECT * FROM pylon WHERE id=?");
+		$req->execute(array($id));
+		return $req->fetch();
+	}
  }

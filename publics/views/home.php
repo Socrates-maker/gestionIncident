@@ -1,5 +1,7 @@
 <?php ob_start(); ?>
-<h1 class="title">Acceuil</h1>
+<?php
+	include('connexionForm.php');
+?>
 
 <?php $content=ob_get_clean(); ?>
 <?php require('layout.php'); ?>

@@ -39,7 +39,8 @@ function incidentPage($user_pk,$pylonne,$localisation,$equipement,$description,$
 		$incident->setSolution($solution);
 		$created = $incident->createIncident();
 		if($created){
-			echo "Incident enregistre";
+			$_SESSION['incident_success'] = "incident enregistré";
+			header("Location:index.php?action=incident");
 		}else{
 			echo "Incident non enregistre";
 		}
@@ -50,16 +51,67 @@ function incidentPage($user_pk,$pylonne,$localisation,$equipement,$description,$
 }
 
 function statitistique($date_debut,$date_fin){
+	$incidentsGroupByPylonLenght=0;
+	$incidentsDistantLenght=0;
+	$incidentsGroupByPylon=[];
 	$incident_lenght=0;
 	$incidents = [];
 	if(!empty($date_debut) AND !empty($date_fin)){
 		$incident = new IncidentManager;
 		$incidents = $incident->getIncidentByDate($date_debut,$date_fin);
 		$incident_lenght = count($incidents);
+		$pylon = new PylonManager();
+		$site = new SitesManager();
+		$pylons = [];
+		$i=0;
+		foreach($incidents as $incidents_e){
+			if ($incidents_e['pylone_pk']) {
+				$pylons[$i] = $pylon->getPylonById($incidents_e['pylone_pk'])['place'];	
+			}
+			else{
+				$pylons[$i] = $site->getSitesById($incidents_e['site_pk'])['place'];
+			}
+
+			$i++;
+ 		}
 		require("publics/views/statistique.php");
 
 	}else{
 		require("publics/views/statistique.php");
 	}
 	
+}
+
+function incidentsGroupByPylon()
+{
+	$incident_lenght = 0;
+	$incidentsDistantLenght=0;
+	$incidents= [];
+	$incidentpylon = new IncidentManager();
+	$incidentsGroupByPylon = $incidentpylon->getMoreIncidentPylonne();
+	$incidentsGroupByPylonLenght =count($incidentsGroupByPylon);
+	require("publics/views/statistique.php");
+}
+
+function incidentDistant(){
+	$incident_lenght = 0;
+	$incidentsGroupByPylonLenght=0;
+	$incident = new IncidentManager();
+	$incidentsDistant = $incident->getIncientByDistant();
+	$pylon = new PylonManager();
+	$site =new SitesManager();
+	$pylons =[];
+	$i=0;
+	foreach($incidentsDistant as $incidents_e){
+			if ($incidents_e['pylone_pk']) {
+				$pylons[$i] = $pylon->getPylonById($incidents_e['pylone_pk'])['place'];	
+			}
+			else{
+				$pylons[$i] = $site->getSitesById($incidents_e['site_pk'])['place'];
+			}
+
+			$i++;
+ 	}
+ 	$incidentsDistantLenght = count($incidentsDistant);
+ 	require("publics/views/statistique.php");
 }

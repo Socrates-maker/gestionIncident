@@ -1,7 +1,25 @@
-<?php ob_start(); ?>
+<?
+php ob_start();
+ ?>
 
 <div class="page">
+	
 	<div class="incident-menu-container">
+		<div>
+			<p class="text-center " style="color:green;" ><?php
+			if (isset($_SESSION['succes'])) {
+				 echo $_SESSION['succes'] ;
+				 $_SESSION["succes"]="";
+			}
+
+			if (isset($_SESSION['incident_success'])) {
+				echo $_SESSION['incident_success'];
+				$_SESSION['incident_success'] = "";
+			}
+			
+
+			?></p>
+		</div>
 		<div class="incident-element-menu">
 			<button id="enregistrer"  class="btn btn-primary btn-lg btn-block">Enregistrer un incident </button>
 		</div>
@@ -11,7 +29,7 @@
 	</div>
 	<div class="form-incident-container bg-info"  id = "incident-form">
 		<p style="font-weight: 400;text-align: center; font-size:20px ;">Enregistrer un incident</p> 
-			<form class="form-style" action="index.php?action=incident&user_pk=<?php echo $_GET['user_pk']?>" method="post">
+			<form class="form-style" action="index.php?action=incident&user_pk=<?php echo $_SESSION['user_pk'];?>" method="post">
 				<div class="form-group">
 					<label for="exampleFormControlSelect3">Siege de l'incident</label>
 					<select class="form-control form-control-sm" name="pylonne">

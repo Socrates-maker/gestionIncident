@@ -29,9 +29,12 @@ function connexion(String $username,String $password){
 
 			if ($user_founded) {
 				$succes = TRUE;
-				$succes_message = "connexion reussie . vous êtes connecté Mr ".$user_chearched;
-				//require("publics/views/incidentMenu.php");
-				//echo $user_pk;
+				$succes_message = "connexion reussie . vous êtes connecté Mr ".$user_chearched
+				;
+				//session_start();
+				$_SESSION['username'] = $user_chearched;
+				$_SESSION['succes'] = $succes_message;
+				$_SESSION['user_pk'] = $user_pk;
 				header("Location:index.php?action=incident&user_pk=".$user_pk);
 			}else{
 				$error = TRUE;
@@ -42,11 +45,13 @@ function connexion(String $username,String $password){
 		}else{
 			$error = TRUE;
 			$error_message = "Identifiant non trouvé";
+			$_SESSION['error_connexion'] = $error_message;
 			require('publics/views/connexion.php');
 		}
 
 	}else
 	{
+
 		require('publics/views/connexion.php');
 	}
 	
@@ -65,12 +70,15 @@ function registration(String $firstname,String $lastname,String $username,String
 		if($registre == TRUE) {
 			$error = False;
 			$confirm_message = TRUE;
-			require("publics/views/connexion.php");
+			$registre_success = "insciption reussie. connectez vous";
+			$_SESSION['registre_success'] = $registre_success;
+			//require("publics/views/connexion.php");
+			header("Location:index.php?action=connexion");
 		}  else{
 			echo "Une erreur innatendue s'est produite"; 
 		}
-		
 	}else{
+		$_SESSION["error_registration"] = "Erreur! Vous devez remplir les champs";
 		require('publics/views/registration.php');
 	}
 	

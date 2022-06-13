@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -7,15 +8,29 @@
 	<link rel="stylesheet" type="text/css" href="publics/css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="publics/css/app.css">
 	<script type="text/javascript" src="publics/js/bootstrap/bootstrap.js"></script>
+	<style type="text/css">
+		body{
+			background-image: url('publics/img/pylonneSocrates.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	</style>
 	
 </head>
-<body class="bg-light">
-	<?php include('nav.php'); ?>
+<body>
+
+	<?php
+		if (isset($_SESSION['username'])) {
+			include('nav1.php');
+		}else{
+		 include('nav.php');
+		}
+	?>
 	<section>
 		<?=$content?>
 	</section>
 	<div class="bg-dark">
-		<p style="color: white; text-align: center;">footer</p>
+		<p style="color: white; text-align: center;">copyright Socrates</p>
 	</div> 
 </body>
 </html>
